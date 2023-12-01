@@ -81,10 +81,7 @@ namespace ChatterServer
         private async Task SetupServer()
         {
             Status = "Validating socket...";
-            int socketPort = 0;
-            var isValidPort = int.TryParse(Port, out socketPort);
-
-            if (!isValidPort)
+            if (!int.TryParse(Port, out var socketPort))
             {
                 DisplayError("Port value is not valid.");
                 return;
@@ -139,9 +136,7 @@ namespace ChatterServer
 
             try
             {
-                NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-
-                foreach (var networkInterface in networkInterfaces)
+                foreach (var networkInterface in NetworkInterface.GetAllNetworkInterfaces())
                 {
                     if (networkInterface.OperationalStatus != OperationalStatus.Up
                         || networkInterface.NetworkInterfaceType == NetworkInterfaceType.Loopback)
@@ -175,18 +170,19 @@ namespace ChatterServer
 
         private void Server_OnPacketSent(object sender, PacketEvents e)
         {
-
+            WriteOutput("Packet Sent");
         }
 
         private void Server_OnPacketReceived(object sender, PacketEvents e)
         {
-
+            WriteOutput("Packet Received");
         }
 
         private void Server_OnPersonalPacketSent(object sender, PersonalPacketEvents e)
         {
             WriteOutput("Personal Packet Sent");
         }
+
         private void Server_OnPersonalPacketReceived(object sender, PersonalPacketEvents e)
         {
             if(e.Packet.Package is UserConnectionPacket ucp)
@@ -209,6 +205,7 @@ namespace ChatterServer
                 Thread.Sleep(500);
                 Task.Run(() => _server.SendObjectToClients(notification)).Wait();
             }
+
             WriteOutput("Personal Packet Received");
         }
 
