@@ -32,7 +32,7 @@ namespace SimpleTcp
             {
                 if(result)
                 {
-                    var guid = RecieveGuid();
+                    var guid = ReceiveGuid();
                     ClientId = Guid.Parse(guid);
                     return true;
                 }
@@ -152,7 +152,7 @@ namespace SimpleTcp
             }
         }
 
-        public string RecieveGuid()
+        public string ReceiveGuid()
         {
             try
             {
@@ -166,7 +166,7 @@ namespace SimpleTcp
             }
             catch (IOException e)
             {
-                Console.WriteLine("RecieveGuid " + e.Message);
+                Console.WriteLine("ReceiveGuid " + e.Message);
                 return null;
             }
         }
