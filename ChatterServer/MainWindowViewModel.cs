@@ -158,7 +158,7 @@ namespace ChatterServer
                 Console.WriteLine("Ошибка при получении локального IP-адреса: " + ex.Message);
             }
 
-            InternalAddress = localIpAddress;
+            InternalAddress = "192.168.0.103";
         }
 
         private void DisplayError(string message)
